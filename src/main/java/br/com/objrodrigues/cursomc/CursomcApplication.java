@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.objrodrigues.cursomc.domain.Categoria;
+import br.com.objrodrigues.cursomc.domain.Cidade;
+import br.com.objrodrigues.cursomc.domain.Estado;
 import br.com.objrodrigues.cursomc.domain.Produto;
 import br.com.objrodrigues.cursomc.repositories.CategoriaRepository;
+import br.com.objrodrigues.cursomc.repositories.CidadeRepository;
+import br.com.objrodrigues.cursomc.repositories.EstadoRepository;
 import br.com.objrodrigues.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -20,6 +24,12 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -28,22 +38,38 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-			Categoria cat1 = new Categoria(null, "Informática");
-			Categoria cat2 = new Categoria(null, "Escritório");
+			Categoria informatica = new Categoria(null, "Informática");
+			Categoria escritorio = new Categoria(null, "Escritório");
 			
-			Produto p1 = new Produto(null, "Computador", 2000.00);
-			Produto p2 = new Produto(null, "Impressora", 800.00);
-			Produto p3 = new Produto(null, "Mouse", 80.00);
+			Produto computador = new Produto(null, "Computador", 2000.00);
+			Produto impressora = new Produto(null, "Impressora", 800.00);
+			Produto mouse = new Produto(null, "Mouse", 80.00);
 			
-			cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
-			cat2.getProdutos().addAll(Arrays.asList(p2));
+			informatica.getProdutos().addAll(Arrays.asList(computador, impressora, mouse));
+			escritorio.getProdutos().addAll(Arrays.asList(impressora));
 			
-			p1.getCategorias().addAll(Arrays.asList(cat1));
-			p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
-			p3.getCategorias().addAll(Arrays.asList(cat1));
+			computador.getCategorias().addAll(Arrays.asList(informatica));
+			impressora.getCategorias().addAll(Arrays.asList(informatica, escritorio));
+			mouse.getCategorias().addAll(Arrays.asList(informatica));
 			
-			categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
-			produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+			
+			Estado minasGerais = new Estado(null, "Minas Gerais");
+			Estado saoPaulo = new Estado(null, "São Paulo");
+			
+			Cidade uberlandia = new Cidade(null, "Uberlandia", minasGerais);
+			Cidade cidadeSaoPaulo = new Cidade(null, "São Paulo", saoPaulo);
+			Cidade campinas = new Cidade(null, "Campinas", saoPaulo);
+			
+			
+			minasGerais.getCidades().addAll(Arrays.asList(uberlandia));
+			saoPaulo.getCidades().addAll(Arrays.asList(cidadeSaoPaulo));
+			saoPaulo.getCidades().addAll(Arrays.asList(campinas));
+			
+			
+			categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
+			produtoRepository.saveAll(Arrays.asList(computador, impressora, mouse));
+			estadoRepository.saveAll(Arrays.asList(minasGerais, saoPaulo));
+			cidadeRepository.saveAll(Arrays.asList(uberlandia, cidadeSaoPaulo, campinas));
 
 	}
 
