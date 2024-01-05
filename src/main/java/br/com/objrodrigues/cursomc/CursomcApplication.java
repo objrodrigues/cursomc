@@ -27,8 +27,7 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-		try {
+
 			Categoria cat1 = new Categoria(null, "Informática");
 			Categoria cat2 = new Categoria(null, "Escritório");
 			
@@ -45,10 +44,6 @@ public class CursomcApplication implements CommandLineRunner {
 			
 			categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 			produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
-			
-		} catch (Exception err) {
-			err.printStackTrace();
-		}
 
 	}
 

@@ -1,9 +1,11 @@
 package br.com.objrodrigues.cursomc.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,12 +28,13 @@ public class Produto implements Serializable{
 	private String nome;
 	private Double preco;
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 		joinColumns = @JoinColumn(name = "produto_id"),
 		inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
-	private Set<Categoria> categorias = new HashSet<>();
+	private List<Categoria> categorias = new ArrayList<>();
 	
 	public Produto() {
 
@@ -68,11 +71,11 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 
-	public Set<Categoria> getCategorias() {
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
 	
-	public void setCategorias(Set<Categoria> categorias) {
+	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
 

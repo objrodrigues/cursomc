@@ -1,9 +1,9 @@
 package br.com.objrodrigues.cursomc.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +22,7 @@ public class Categoria implements Serializable{
 	private String nome;
 	
 	@ManyToMany(mappedBy="categorias")
-	private Set<Produto> produtos = new HashSet<>();
+	private List<Produto> produtos = new ArrayList<>();
 	
 	public Categoria() {
 		
@@ -50,11 +50,11 @@ public class Categoria implements Serializable{
 		this.nome = nome;
 	}
 
-	public Set<Produto> getProdutos() {
+	public List<Produto> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(Set<Produto> produtos) {
+	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
 
