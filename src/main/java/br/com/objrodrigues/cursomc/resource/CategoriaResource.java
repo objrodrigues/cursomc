@@ -14,7 +14,7 @@ import br.com.objrodrigues.cursomc.domain.Categoria;
 public class CategoriaResource {
 	
 	@GetMapping
-	public List listar() {
+	public List<Categoria> listar() {
 		
 		Categoria cat1 = new Categoria(1, "Informática");
 		Categoria cat2 = new Categoria(2, "Escritório");
